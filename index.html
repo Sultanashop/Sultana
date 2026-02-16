@@ -1,167 +1,436 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arab Fashion - Vêtements Arabes de Luxe</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo">
-                    <h1>Arab Fashion</h1>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="#home">Accueil</a></li>
-                    <li><a href="#products">Boutique</a></li>
-                    <li><a href="#about">À propos</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="nav-actions">
-                    <button class="btn-search"><i class="fas fa-search"></i></button>
-                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></button>
-                    <button class="btn-account" onclick="showLogin()">Compte</button>
-                </div>
-            </div>
-        </nav>
-    </header>
+/* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h2>Vêtements Arabes de Luxe</h2>
-                <p>Découvrez notre collection exclusive de vêtements traditionnels et modernes</p>
-                <button class="btn-primary">Explorer la Collection</button>
-            </div>
-        </section>
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    line-height: 1.6;
+}
 
-        <section id="products" class="products">
-            <div class="container">
-                <h2 class="section-title">Notre Collection</h2>
-                <div class="product-grid">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Caftan+Royal" alt="Caftan Royal">
-                            <div class="product-overlay">
-                                <button class="btn-add-cart">Ajouter au panier</button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3>Caftan Royal</h3>
-                            <p class="price">100 €</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Abaya+Élégante" alt="Abaya Élégante">
-                            <div class="product-overlay">
-                                <button class="btn-add-cart">Ajouter au panier</button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3>Abaya Élégante</h3>
-                            <p class="price">1 800 €</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Djellaba+Luxe" alt="Djellaba Luxe">
-                            <div class="product-overlay">
-                                <button class="btn-add-cart">Ajouter au panier</button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3>Djellaba Luxe</h3>
-                            <p class="price">1 200 €</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Thobe+Traditionnel" alt="Thobe Traditionnel">
-                            <div class="product-overlay">
-                                <button class="btn-add-cart">Ajouter au panier</button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3>Thobe Traditionnel</h3>
-                            <p class="price">950 €</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-        <section id="about" class="about">
-            <div class="container">
-                <h2 class="section-title">À Propos de Arab Fashion</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>Arab Fashion est votre destination privilégiée pour les vêtements arabes de haute qualité. Nous sélectionnons avec soin les plus belles pièces traditionnelles et modernes pour vous offrir une expérience d'achat unique.</p>
-                        <p>Nos créations allient savoir-faire traditionnel et design contemporain pour sublimer votre style.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+/* Header et Navigation */
+header {
+    background-color: #000000;
+    border-bottom: 1px solid #333;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Arab Fashion</h3>
-                    <p>Vêtements arabes de luxe</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Liens Utiles</h4>
-                    <ul>
-                        <li><a href="#products">Boutique</a></li>
-                        <li><a href="#about">À propos</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>Email: contact@arabfashion.com</p>
-                    <p>Tél: +33 1 23 45 67 89</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Arab Fashion. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+.navbar {
+    padding: 1rem 0;
+}
 
-    <!-- Modal de connexion/inscription -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="loginForm" class="auth-form">
-                <h2>Connexion</h2>
-                <form onsubmit="handleLogin(event)">
-                    <input type="email" placeholder="Email" required>
-                    <input type="password" placeholder="Mot de passe" required>
-                    <button type="submit" class="btn-primary">Se connecter</button>
-                </form>
-                <p>Pas encore de compte? <a href="#" onclick="showRegister()">S'inscrire</a></p>
-            </div>
-            <div id="registerForm" class="auth-form" style="display: none;">
-                <h2>Inscription</h2>
-                <form onsubmit="handleRegister(event)">
-                    <input type="text" placeholder="Nom complet" required>
-                    <input type="email" placeholder="Email" required>
-                    <input type="password" placeholder="Mot de passe" required>
-                    <input type="password" placeholder="Confirmer le mot de passe" required>
-                    <button type="submit" class="btn-primary">S'inscrire</button>
-                </form>
-                <p>Déjà un compte? <a href="#" onclick="showLogin()">Se connecter</a></p>
-            </div>
-        </div>
-    </div>
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+.logo h1 {
+    color: #ffd700;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+    color: #ffd700;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-actions button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-actions button:hover {
+    color: #ffd700;
+}
+
+.btn-cart {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ffd700;
+    color: #000000;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.btn-account {
+    background-color: transparent;
+    border: 1px solid #ffd700;
+    color: #ffd700;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-account:hover {
+    background-color: #ffd700;
+    color: #000000;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1920x1080/1a1a1a/ffd700?text=Arab+Fashion') center/cover;
+    text-align: center;
+    margin-top: 80px;
+}
+
+.hero-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #cccccc;
+}
+
+.btn-primary {
+    background-color: #ffd700;
+    color: #000000;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    background-color: #ffed4e;
+    transform: translateY(-2px);
+}
+
+/* Products Section */
+.products {
+    padding: 5rem 0;
+    background-color: #0a0a0a;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.product-card {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+}
+
+.product-image {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.btn-add-cart {
+    background-color: #ffd700;
+    color: #000000;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add-cart:hover {
+    background-color: #ffed4e;
+}
+
+.product-info {
+    padding: 1.5rem;
+}
+
+.product-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.price {
+    font-size: 1.5rem;
+    color: #ffd700;
+    font-weight: 600;
+}
+
+/* About Section */
+.about {
+    padding: 5rem 0;
+    background-color: #000000;
+}
+
+.about-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #cccccc;
+    line-height: 1.8;
+}
+
+/* Footer */
+footer {
+    background-color: #0a0a0a;
+    padding: 3rem 0 1rem;
+    border-top: 1px solid #333;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: #ffd700;
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #ffd700;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #333;
+    color: #888;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    margin: 10% auto;
+    padding: 2rem;
+    border: 1px solid #ffd700;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    color: #ffffff;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #ffd700;
+}
+
+.auth-form h2 {
+    color: #ffd700;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.auth-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.auth-form input {
+    background-color: #000000;
+    border: 1px solid #333;
+    color: #ffffff;
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: #ffd700;
+}
+
+.auth-form p {
+    text-align: center;
+    margin-top: 1rem;
+    color: #cccccc;
+}
+
+.auth-form a {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-form a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-menu {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
