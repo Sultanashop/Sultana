@@ -2,8 +2,25 @@
 let cart = [];
 let cartCount = 0;
 
+// Base de données fictive d'utilisateurs
+const fakeUsers = [
+    { name: "Ahmed Benali", email: "ahmed.benali@email.com", password: "password123" },
+    { name: "Fatima Alami", email: "fatima.alami@email.com", password: "azerty456" },
+    { name: "Mohammed Karim", email: "mohammed.karim@email.com", password: "qwerty789" },
+    { name: "Amina Said", email: "amina.said@email.com", password: "sultan123" },
+    { name: "Youssef Mansour", email: "youssef.mansour@email.com", password: "luxury456" }
+];
+
+// Base de données de produits
+const products = [
+    { name: "Caftan Royal", price: "100 €", category: "caftan", description: "Caftan traditionnel marocain" },
+    { name: "Abaya Élégante", price: "1 800 €", category: "abaya", description: "Abaya moderne et élégante" },
+    { name: "Djellaba Luxe", price: "1 200 €", category: "djellaba", description: "Djellaba de luxe" },
+    { name: "Thobe Traditionnel", price: "950 €", category: "thobe", description: "Thobe traditionnel arabe" }
+];
+
 // Gestion des utilisateurs
-let users = JSON.parse(localStorage.getItem('users')) || [];
+let users = JSON.parse(localStorage.getItem('users')) || [...fakeUsers];
 let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 
 // Initialisation
@@ -350,3 +367,75 @@ document.head.appendChild(style);
 
 // Gestion du clic sur le bouton panier
 document.querySelector('.btn-cart').addEventListener('click', showCart);
+
+// Fonction de recherche
+function performSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchTerm = searchInput.value.toLowerCase().trim();
+
+    if (searchTerm === '') {
+        showNotification('Veuillez entrer un terme de recherche');
+        return;
+    }
+
+    const filteredProducts = products.filter(product => 
+        product.name.toLowerCase().includes(searchTerm) ||
+        product.category.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
+    );
+
+    if (filteredProducts.length === 0) {
+        showNotification('Aucun produit trouvé pour: ' + searchTerm);
+        return;
+    }
+
+    displaySearchResults(filteredProducts, searchTerm);
+}
+
+function displaySearchResults(results, searchTerm) {
+    const productsSection = document.getElementById('products');
+    const productGrid = productsSection.querySelector('.product-grid');
+
+    // Vider la grille actuelle
+    productGrid.innerHTML = '';
+
+    // Créer les cartes de produits pour les résultats
+    results.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <div class="product-image">
+                <img src="https://via.placeholder.com/300x400/1a1a1a/ffd700?text=${encodeURIComponent(product.name)}" alt="${product.name}">
+                <div class="product-overlay">
+                    <button class="btn-add-cart" onclick="addToCart('${product.name}', '${product.price}')">Ajouter au panier</button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>${product.name}</h3>
+                <p class="price">${product.price}</p>
+            </div>
+        `;
+        productGrid.appendChild(productCard);
+    });
+
+    // Mettre à jour le titre
+    const sectionTitle = productsSection.querySelector('.section-title');
+    sectionTitle.textContent = `Résultats pour "${searchTerm}" (${results.length} produit${results.length > 1 ? 's' : ''})`;
+
+    // Faire défiler vers la section produits
+    productsSection.scrollIntoView({ behavior: 'smooth' });
+
+    showNotification(`${results.length} produit${results.length > 1 ? 's' : ''} trouvé${results.length > 1 ? 's' : ''}`);
+}
+
+// Gestion de la recherche avec la touche Entrée
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    }
+});
