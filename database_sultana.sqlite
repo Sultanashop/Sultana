@@ -1,0 +1,148 @@
+-- Fichier SQLite pour Sultana Boutique
+-- Pas besoin d'installation, juste ouvrir ce fichier avec un outil SQLite
+
+-- Création des tables
+CREATE TABLE IF NOT EXISTS categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom TEXT NOT NULL,
+    description TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS produits (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom TEXT NOT NULL,
+    description TEXT,
+    prix REAL NOT NULL,
+    image_url TEXT,
+    stock INTEGER DEFAULT 0,
+    categorie_id INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (categorie_id) REFERENCES categories(id)
+);
+
+CREATE TABLE IF NOT EXISTS utilisateurs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    mot_de_passe TEXT NOT NULL,
+    telephone TEXT,
+    adresse TEXT,
+    ville TEXT,
+    pays TEXT,
+    role TEXT DEFAULT 'client',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS commandes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    utilisateur_id INTEGER,
+    total REAL NOT NULL,
+    statut TEXT DEFAULT 'en_attente',
+    adresse_livraison TEXT,
+    mode_paiement TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id)
+);
+
+CREATE TABLE IF NOT EXISTS commande_details (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    commande_id INTEGER NOT NULL,
+    produit_id INTEGER NOT NULL,
+    quantite INTEGER NOT NULL,
+    prix_unitaire REAL NOT NULL,
+    total_ligne REAL NOT NULL,
+    FOREIGN KEY (commande_id) REFERENCES commandes(id),
+    FOREIGN KEY (produit_id) REFERENCES produits(id)
+);
+
+CREATE TABLE IF NOT EXISTS panier (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    utilisateur_id INTEGER,
+    produit_id INTEGER,
+    quantite INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
+    FOREIGN KEY (produit_id) REFERENCES produits(id)
+);
+
+-- Insertion des catégories
+INSERT OR IGNORE INTO categories (nom, description) VALUES
+('Caftan', 'Caftans traditionnels marocains de luxe'),
+('Abaya', 'Abayas modernes et élégantes'),
+('Djellaba', 'Djellabas traditionnelles et contemporaines'),
+('Thobe', 'Thobes traditionnels pour hommes'),
+('Accessoires', 'Accessoires et compléments de mode arabe');
+
+-- Insertion des produits
+INSERT OR IGNORE INTO produits (nom, description, prix, image_url, stock, categorie_id) VALUES
+('Caftan Royal', 'Caftan traditionnel marocain en soie avec broderies dorées', 2500.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Caftan+Royal', 10, 1),
+('Caftan Princesse', 'Caftan moderne en velours avec pierres précieuses', 3200.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Caftan+Princesse', 8, 1),
+('Abaya Élégante', 'Abaya noire élégante avec détails discrets', 1800.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Abaya+Élégante', 15, 2),
+('Abaya Moderne', 'Abaya moderne avec coupe contemporaine', 2200.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Abaya+Moderne', 12, 2),
+('Djellaba Luxe', 'Djellaba de luxe en laine fine', 1200.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Djellaba+Luxe', 20, 3),
+('Djellaba Traditionnelle', 'Djellaba traditionnelle en coton', 800.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Djellaba+Traditionnelle', 25, 3),
+('Thobe Traditionnel', 'Thobe blanc traditionnel pour homme', 950.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Thobe+Traditionnel', 30, 4),
+('Thobe Moderne', 'Thobe moderne avec coupe ajustée', 1200.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Thobe+Moderne', 18, 4),
+('Ceinture Orientale', 'Ceinture en métal doré pour caftan', 150.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Ceinture+Orientale', 50, 5),
+('Bijoux Arabes', 'Ensemble de bijoux traditionnels arabes', 350.00, 'https://via.placeholder.com/300x400/1a1a1a/ffd700?text=Bijoux+Arabes', 40, 5);
+
+-- Insertion des utilisateurs (mots de passe en clair)
+INSERT OR IGNORE INTO utilisateurs (nom, email, mot_de_passe, telephone, adresse, ville, pays, role) VALUES
+('Ahmed Benali', 'ahmed.benali@email.com', 'password123', '+212 6 12 34 56 78', '123 Rue Mohammed V, Casablanca', 'Casablanca', 'Maroc', 'client'),
+('Fatima Alami', 'fatima.alami@email.com', 'azerty456', '+212 6 23 45 67 89', '456 Avenue Hassan II, Rabat', 'Rabat', 'Maroc', 'client'),
+('Mohammed Karim', 'mohammed.karim@email.com', 'qwerty789', '+212 6 34 56 78 90', '789 Boulevard Moulay Youssef, Marrakech', 'Marrakech', 'Maroc', 'client'),
+('Amina Said', 'amina.said@email.com', 'sultan123', '+212 6 45 67 89 01', '321 Rue Agdal, Fès', 'Fès', 'Maroc', 'client'),
+('Youssef Mansour', 'youssef.mansour@email.com', 'luxury456', '+212 6 56 78 90 12', '654 Avenue Mohammed V, Tanger', 'Tanger', 'Maroc', 'client'),
+('Admin Sultana', 'admin@sultana.com', 'admin123', '+212 6 99 88 77 66', '1 Siège Social, Casablanca', 'Casablanca', 'Maroc', 'admin');
+
+-- Insertion de commandes d'exemple
+INSERT OR IGNORE INTO commandes (utilisateur_id, total, statut, adresse_livraison, mode_paiement) VALUES
+(1, 2500.00, 'livree', '123 Rue Mohammed V, Casablanca', 'Carte bancaire'),
+(2, 3000.00, 'expediee', '456 Avenue Hassan II, Rabat', 'PayPal'),
+(3, 1750.00, 'confirmee', '789 Boulevard Moulay Youssef, Marrakech', 'Virement bancaire');
+
+-- Insertion des détails de commandes
+INSERT OR IGNORE INTO commande_details (commande_id, produit_id, quantite, prix_unitaire, total_ligne) VALUES
+(1, 1, 1, 2500.00, 2500.00),
+(2, 2, 1, 3200.00, 3200.00),
+(3, 6, 1, 800.00, 800.00),
+(3, 9, 1, 150.00, 150.00),
+(3, 10, 1, 350.00, 350.00);
+
+-- Insertion d'articles dans le panier
+INSERT OR IGNORE INTO panier (utilisateur_id, produit_id, quantite) VALUES
+(1, 3, 1),
+(2, 5, 2),
+(4, 7, 1);
+
+-- Vues (SQLite utilise des vues temporaires)
+CREATE TEMP VIEW IF NOT EXISTS vue_produits_complets AS
+SELECT 
+    p.id,
+    p.nom,
+    p.description,
+    p.prix,
+    p.image_url,
+    p.stock,
+    c.nom AS categorie_nom,
+    p.created_at
+FROM produits p
+LEFT JOIN categories c ON p.categorie_id = c.id;
+
+CREATE TEMP VIEW IF NOT EXISTS vue_commandes_completes AS
+SELECT 
+    co.id,
+    co.total,
+    co.statut,
+    co.adresse_livraison,
+    co.mode_paiement,
+    co.created_at,
+    u.nom AS client_nom,
+    u.email AS client_email
+FROM commandes co
+LEFT JOIN utilisateurs u ON co.utilisateur_id = u.id;
