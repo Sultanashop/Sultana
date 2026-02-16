@@ -1,0 +1,58 @@
+COMPTES TEST - SULTANA BOUTIQUE
+
+================================
+Comptes pré-enregistrés (pour tester) :
+================================
+
+1. Ahmed Benali
+   Email: ahmed.benali@email.com
+   Mot de passe: password123
+
+2. Fatima Alami  
+   Email: fatima.alami@email.com
+   Mot de passe: azerty456
+
+3. Mohammed Karim
+   Email: mohammed.karim@email.com
+   Mot de passe: qwerty789
+
+4. Amina Said
+   Email: amina.said@email.com
+   Mot de passe: sultan123
+
+5. Youssef Mansour
+   Email: youssef.mansour@email.com
+   Mot de passe: luxury456
+
+================================
+Fonctionnalités testées :
+================================
+
+✅ Barre de recherche fonctionnelle
+   - Recherche par nom de produit
+   - Recherche par catégorie (caftan, abaya, djellaba, thobe)
+   - Recherche par description
+   - Support de la touche Entrée
+
+✅ Système de comptes
+   - Connexion avec comptes pré-enregistrés
+   - Inscription de nouveaux comptes
+   - Stockage local des données
+   - Déconnexion automatique
+
+✅ Boutique avec panier
+   - Ajout/suppression de produits
+   - Calcul automatique du total
+   - Processus de commande simulé
+
+================================
+URL d'accès réseau :
+================================
+http://192.168.1.64:8000
+
+================================
+Notes :
+================================
+- Les mots de passe sont en clair (comme demandé)
+- Les données sont sauvegardées localement
+- Le site est accessible sur tout le réseau local
