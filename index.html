@@ -22,7 +22,10 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <button class="btn-search"><i class="fas fa-search"></i></button>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Rechercher..." class="search-input">
+                        <button class="btn-search" onclick="performSearch()"><i class="fas fa-search"></i></button>
+                    </div>
                     <button class="btn-cart"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></button>
                     <button class="btn-account" onclick="showLogin()">Compte</button>
                 </div>
